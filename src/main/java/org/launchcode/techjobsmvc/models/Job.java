@@ -29,33 +29,31 @@ public class Job {
         coreCompetency = aCoreCompetency;
     }
 
+    private String formatString(String string) {
+        return string == null || string.isEmpty() ? "Data not available" : string;
+    }
+    private String formatField(JobField field) {
+        return formatString(field == null ? "" : field.getValue());
+    }
     // Custom toString method.
     @Override
-    public String toString(){
-        String output = "";
-        if (name.equals("")){
-            name = "Data not available";
-        }
-        if (employer.getValue().equals("") || employer.getValue() == null){
-            employer.setValue("Data not available");
-        }
-        if (location.getValue().equals("") || location.getValue() == null){
-            location.setValue("Data not available");
-        }
-        if (coreCompetency.getValue().equals("") || coreCompetency.getValue() == null){
-            coreCompetency.setValue("Data not available");
-        }
-        if (positionType.getValue().equals("") || positionType.getValue() == null){
-            positionType.setValue("Data not available");
-        }
+    public String toString() {
 
-        output = String.format("\nID: %d\n" +
-                "Name: %s\n" +
-                "Employer: %s\n" +
-                "Location: %s\n" +
-                "Position Type: %s\n" +
-                "Core Competency: %s\n", id, name, employer, location, positionType, coreCompetency);
-        return output;
+        return
+                """
+                
+                ID: %s
+                Name: %s
+                Employer: %s
+                Location: %s
+                Position Type: %s
+                Core Competency: %s
+                """.formatted(id,
+                        formatString(name),
+                        formatField(employer),
+                        formatField(location),
+                        formatField(positionType),
+                        formatField(coreCompetency));
     }
 
     // Custom equals and hashCode methods. Two Job objects are "equal" when their id fields match.
